@@ -3,15 +3,11 @@
 #### Date: 23/nov/2023
 
 ## x64Dbg analysis
-![crackme_001](uic-0x00-1.png)
-
-
-
 This first introductory crackme is very simple, trying to start it we see that we have few functions, in particular we can click on the "Help" button to make a submenu appear.
 
 
 
-![crackme_002](uic-0x00-2.png)
+![crackme_001](uic-0x00-1.png)
 
 
 
@@ -19,7 +15,7 @@ If we click on the "Register" button we notice the possibility of inserting a "n
 
 
 
-![crackme_002_1](uic-0x00-2_1.png)
+![crackme_002](uic-0x00-2.png)
 
 
 
@@ -27,12 +23,20 @@ We can see this error message, we also notice how in the Debugger the author of 
 
 
 
-![crackme_003](uic-0x00-3.png)
+![crackme_002_1](uic-0x00-2_1.png)
 
 
 
 Now let's try to insert something random to get the same error message, pause the x64dbg with the appropriate button and check the CallStack, this basically displays the call stack of the current thread.
-We know that in the stack there must be the return address after showing the message on the screen, opening the CallStack screen we have several entries, in particular we look for addresses that do not lead to strange sections of code or outside of our base of code, since this crackme is simple we can almost immediately identify the right entry, which is the one highlighted in the figure, so let's follow the return address of our messagebox
+We know that in the stack there must be the return address after showing the message on the screen, opening the CallStack screen we have several entries, in particular we look for addresses that do not lead to strange sections of code or outside of our base of code, since this crackme is simple we can almost immediately identify the right entry, which is the one highlighted in the figure, so let's follow the return address of our messagebox.
+
+
+
+![crackme_003](uic-0x00-3.png)
+
+
+
+We followed the address of the return, we check the module and we see that we are in the "crackme.exe", by scrolling we see the call to the MessageBox function with the message that appeared on the screen and just above another call to the MessageBox function, but with the text which says congratulations for completing the crackme, this is obviously the call that interests us.
 
 
 
@@ -40,7 +44,7 @@ We know that in the stack there must be the return address after showing the mes
 
 
 
-we followed the address of the return, we check the module and we see that we are in the "crackme.exe", by scrolling we see the call to the MessageBox function with the message that appeared on the screen and just above another call to the MessageBox function, but with the text which says congratulations for completing the crackme, this is obviously the call that interests us.
+Let's go to the beginning of the function which is usually easily identifiable by a push (address 0040134D), right click and see who calls it
 
 
 
@@ -48,19 +52,11 @@ we followed the address of the return, we check the module and we see that we ar
 
 
 
-let's go to the beginning of the function which is usually easily identifiable by a push (address 0040134D), right click and see who calls it
-
-
-
-![crackme_006](uic-0x00-6.png)
-
-
-
 We have a call from this subroutine so let's follow it in the debugger
 
 
 
-![crackme_007](uic-0x00-7.png)
+![crackme_006](uic-0x00-6.png)
 
 
 
@@ -72,9 +68,16 @@ What we can do is therefore modify the "je" instruction with the jmp instruction
 
 
 
-![crackme_008](uic-0x00-8.png)
+![crackme_007](uic-0x00-7.png)
 
 
 
 As you can see from the image
-# That's all folks!
+
+
+
+![crackme_008](uic-0x00-8.png)
+
+
+
+# That's all!
