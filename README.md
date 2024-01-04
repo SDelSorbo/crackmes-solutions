@@ -9,6 +9,7 @@ All these solutions are the result of my learning, so it is very likely that the
 
 ## Ordered list of crackmes
 1.  Win32 - **Level 0x00** - [uic-crackme0x00.md](uic/uic-crackme%200x00.md)
+2.  Win32 - **Level 0x00** - [uic-crackme0x01.md](uic/uic-crackme%200x01.md)
 
 ### Notice
 
