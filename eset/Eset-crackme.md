@@ -256,4 +256,4 @@ We have now reached the conclusion, in fact, we can see that in memory the new s
 
 
 
-![crackme_027](eset-27.png)
+![crackme_028](eset-28.png)
