@@ -11,7 +11,7 @@ All these solutions are the result of my learning, so it is very likely that the
 1.  Win32 - **Level 0x00** - [uic-crackme0x00.md](uic/uic-crackme%200x00.md)
 2.  Win32 - **Level 0x00** - [uic-crackme0x01.md](uic/uic-crackme%200x01.md)
 ### Special
-1.  Win32 - **Level Eset challenge** - [eset-challenge-part-1.md](uic/uic-crackme%200x00.md)
+1.  Win32 - **Level Eset challenge** - [eset-challenge-part-1.md](eset/Eset-crackme.md)
 ### Notice
 
 I advise you to ***always use a virtual machine*** to avoid problems on your system. And also that you check the executables with an ***antivirus***, or send them to [Virus Total](https://www.virustotal.com) or similar tools to prevent them from sneaking a program that could be **"something more"** than a crackme.
