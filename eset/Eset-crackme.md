@@ -1,14 +1,14 @@
 # [Eset Challenge Crackme (Part 1)](crackme0x00.exe)
 #### Date: 18/feb/2023
 Hi there,\
-is possible to download this crackme from the official Eset website.
+you can download this crackme from the official Eset website.
 
 
-![crackme_001](eset-1.png)
+![crackme_001](eset-1.png "Figure 1")
 
 
 
-If you click on the download button, a zip file will be downloaded,but if you try to extract it an error will be returned.
+If you click on the download button, a zip file will be downloaded, but if you try to extract it an error will be returned.
 
 
 
@@ -16,7 +16,7 @@ If you click on the download button, a zip file will be downloaded,but if you tr
 
 
 
-At this point we look for more information, we open Detect It easy and drag the file of interest.
+At this point we look for more information, we open Detect It Easy and drag the file of interest.\
 If we open the hex view, we can see that the first two bytes are MZ, so this should be a valid .exe file.
 
 
@@ -25,7 +25,7 @@ If we open the hex view, we can see that the first two bytes are MZ, so this sho
 
 
 
-Let's change the extension and try to run it.
+Let's change the file extension from .zip to .exe and try to run it.\
 So we can see the file is now opened, it is a simple window that asks for a password, if we enter something random, the program ends.
 
 
@@ -34,9 +34,9 @@ So we can see the file is now opened, it is a simple window that asks for a pass
 
 
 
-Let's open the debugger to see what happens, the first thing we notice is that once we get to the entry point, if we try to continue the program ends, we don't manage to get to the moment in which it asks us for the password, there's probably some trick that detects the debugger.
+Let's open the debugger to see what happens, the first thing we notice is that once we get to the entry point, if we try to continue the program ends, we don't manage to get to the moment in which it asks us for the password, there's probably some trick that detects the debugger.\
 So let's start from the entry point and step line by line until we find some suspicious calls.
-We can also look at the program imports and see that IsDebuggerPresent is there, we can put a breakpoint on all the calls of this function and if we run the program it will stop right on one of these, we can identify it much more quickly but nowadays no one uses this function to find a debugger, generally there are custom systems, so we will proceed with the first method which is more general even if slower.
+We can also look at the program imports and see that "IsDebuggerPresent" is there, we can put a breakpoint on all the calls of this function and if we run the program it will stop right on one of these, we can identify it much more quickly but nowadays no one uses this function to find a debugger, generally there are custom systems, so we will proceed with the first method which is more general even if slower.
 
 
 
@@ -44,8 +44,8 @@ We can also look at the program imports and see that IsDebuggerPresent is there,
 
 
 
-Thus we arrive at the call at address 00401bf5, if we press F8 again (step over), the program will close so we have to find out what happens in this call.
-We can immediately see the call to IsDebuggerPresent:
+Thus we arrive at the call at address 00401bf5, if we press F8 again (step over), the program will close so we have to find out what happens in this call.\
+If we press F7(step into) we can immediately see the call to IsDebuggerPresent, let's check the body of the function:
 
 mov eax,dword ptr fs:[30]                                                 
 movzx eax,byte ptr ds:[eax+2]                                                                    
@@ -56,7 +56,7 @@ At index 0x30 we find another data structure, called ProcessEnvironmentBlock, he
 As its name indicates, it returns true if the process has "attached" a debugger.
 Generally we find this result in EAX, indeed in the code a test is done:
 
-test eax, eax
+test eax, eax\
 jump if equal
 
 Basically it executes the jump if the result of eax is zero, but we know that eax is not zero, so the jump will not executed and the ExitProcess will be called.
@@ -252,7 +252,8 @@ At this point the idea is to re-execute the program and pass the address of this
 
 
 
-We have now reached the conclusion, in fact, we can see that in memory the new string also now makes sense, and a different message is printed on the console, a link that invites us to download part 2 of this challenge, part 1 is now complete
+We have now reached the conclusion, in fact, we can see that in memory the new string also now makes sense, and a different message is printed on the console, a link that invites us to download part 2 of this challenge.\
+Part 1 of the challenge is now complete.
 
 
 
